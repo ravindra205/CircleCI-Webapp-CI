@@ -30,6 +30,7 @@ jobs:
           cp /tmp/workspace/webappdemo .
           TAG=0.1.$CIRCLE_BUILD_NUM
           docker build -t virtualthoughts/circleci-webappdemo:$TAG .
+          echo $PASSWORD | docker login -u $USER_NAME --password-stdin
           aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 781862615829.dkr.ecr.us-east-1.amazonaws.com
           docker push 781862615829.dkr.ecr.us-east-1.amazonaws.com/argocd-demo:$TAG
   GenerateYAML:
